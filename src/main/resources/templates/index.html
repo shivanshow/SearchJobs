@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Links</title>
+</head>
+<body>
+    <h1>Search URL by ID</h1>
+
+    <!-- Search form -->
+    <form action="/search" method="get">
+        <input type="number" name="urlId" placeholder="Enter URL ID" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- List All button (form submission to list all links) -->
+    <form action="/listAll" method="get">
+        <button type="submit">List All</button>
+    </form>
+
+    <div>
+        <h2>Results</h2>
+        <div>
+            <!-- Display the search result or all results here -->
+            <ul>
+                <th:block th:if="${url != null}">
+                    <li>ID: <span th:text="${url.urlId}">ID</span>, URL: <span th:text="${url.url}">URL</span></li>
+                </th:block>
+                
+                  <th:block th:if="${url == null}">
+			        <li>Link with ID: <span th:text="${enteredId}"></span> not found</li>
+			    </th:block>
+                <!-- Loop through the list of all URLs if 'List All' is clicked -->
+                <th:block th:if="${allLinks != null}">
+                    <ul>
+                        <th:block th:each="link : ${allLinks}">
+                            <li>ID: <span th:text="${link.urlId}">ID</span>, URL: <span th:text="${link.url}">URL</span></li>
+                        </th:block>
+                    </ul>
+                </th:block>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
